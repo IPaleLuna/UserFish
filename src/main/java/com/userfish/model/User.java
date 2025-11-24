@@ -17,8 +17,7 @@ public class User {
     @Column(name = "createdAt", nullable = false)
     private LocalDateTime _createdAt;
 
-    public User(long _id, String _name, String _email) {
-        this._id = _id;
+    public User(String _name, String _email) {
         this._name = _name;
         this._email = _email;
         this._createdAt = LocalDateTime.now();
