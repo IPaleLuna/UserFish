@@ -1,0 +1,5 @@
+com\userfish\dao\UserDaoImpl.class
+com\userfish\Main.class
+com\userfish\dao\UserDao.class
+com\userfish\util\HibernateUtil.class
+com\userfish\model\User.class
