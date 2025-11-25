@@ -8,10 +8,15 @@
         <property name="connection.driver_class">org.postgresql.Driver</property>
         <property name="connection.url">jdbc:postgresql://localhost:5432/userdb</property>
         <property name="connection.username">postgres</property>
-        <property name="connection.password">password</property>
+        <property name="connection.password">Lulu&lt;3</property>
 
-        <!-- JDBC connection pool settings -->
+        <!-- Connection pool settings -->
         <property name="connection.pool_size">5</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
 
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
@@ -20,10 +25,16 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
 
-        <!-- Drop and re-create the database schema on startup -->
+        <!-- Database schema update -->
         <property name="hbm2ddl.auto">update</property>
 
-        <!-- Named entities -->
-        <mapping class="com.example.model.User"/>
+        <!-- JDBC transaction isolation -->
+        <property name="connection.isolation">2</property>
+
+        <!-- Disable the second-level cache -->
+        <property name="cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
+        <property name="cache.use_second_level_cache">false</property>
+        <property name="cache.use_query_cache">false</property>
+
     </session-factory>
 </hibernate-configuration>

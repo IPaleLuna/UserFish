@@ -78,9 +78,6 @@ public class Main {
             System.out.print("Enter email: ");
             String email = scanner.nextLine();
             
-            System.out.print("Enter age: ");
-            int age = Integer.parseInt(scanner.nextLine());
-            
             User user = new User(name, email);
             User savedUser = userDao.save(user);
             System.out.println("User created successfully: " + savedUser);
