@@ -7,6 +7,7 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.userfish.Service.UserServiceImpl;
 import com.userfish.dao.UserDao;
 import com.userfish.dao.UserDaoImpl;
 import com.userfish.model.User;
@@ -16,10 +17,11 @@ public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
     private static final UserDao userDao = new UserDaoImpl();
     private static final Scanner scanner = new Scanner(System.in);
+    private static final UserServiceImpl userService = new UserServiceImpl(userDao);
 
     public static void main(String[] args) {
         logger.info("Starting User Service application");
-        
+
         try {
             boolean running = true;
             while (running) {
@@ -77,10 +79,13 @@ public class Main {
             
             System.out.print("Enter email: ");
             String email = scanner.nextLine();
+
+            System.out.print("Enter age: ");
+            int age = Integer.parseInt(scanner.nextLine());
             
-            User user = new User(name, email);
-            User savedUser = userDao.save(user);
+            User savedUser = userService.createUser(name, age, email);
             System.out.println("User created successfully: " + savedUser);
+
         } catch (NumberFormatException e) {
             System.out.println("Invalid age format. Please enter a number.");
         } catch (Exception e) {
@@ -93,7 +98,7 @@ public class Main {
             System.out.print("Enter user ID: ");
             Long id = Long.parseLong(scanner.nextLine());
             
-            Optional<User> user = userDao.findById(id);
+            Optional<User> user = userService.getUserById(id);
             if (user.isPresent()) {
                 System.out.println("User found: " + user.get());
             } else {
@@ -108,7 +113,7 @@ public class Main {
 
     private static void findAllUsers() {
         try {
-            List<User> users = userDao.findAll();
+            List<User> users = userService.getAllUsers();
             if (users.isEmpty()) {
                 System.out.println("No users found.");
             } else {
@@ -125,7 +130,7 @@ public class Main {
             System.out.print("Enter user ID to update: ");
             Long id = Long.parseLong(scanner.nextLine());
             
-            Optional<User> existingUser = userDao.findById(id);
+            Optional<User> existingUser = userService.getUserById(id);
             if (existingUser.isEmpty()) {
                 System.out.println("User not found with ID: " + id);
                 return;
@@ -135,17 +140,14 @@ public class Main {
             
             System.out.print("Enter new name (current: " + user.get_name() + "): ");
             String name = scanner.nextLine();
-            if (!name.isEmpty()) {
-                user.set_name(name);
-            }
-            
+
             System.out.print("Enter new email (current: " + user.get_email() + "): ");
             String email = scanner.nextLine();
-            if (!email.isEmpty()) {
-                user.set_email(email);
-            }
+
+            System.out.print("Enter new age (current: " + user.get_age() + "): ");
+            int ageInput = Integer.parseInt(scanner.nextLine());
             
-            User updatedUser = userDao.update(user);
+            User updatedUser = userService.updateUser(id, name, ageInput, email);
             System.out.println("User updated successfully: " + updatedUser);
         } catch (NumberFormatException e) {
             System.out.println("Invalid number format.");
@@ -159,13 +161,7 @@ public class Main {
             System.out.print("Enter user ID to delete: ");
             Long id = Long.parseLong(scanner.nextLine());
             
-            Optional<User> user = userDao.findById(id);
-            if (user.isPresent()) {
-                userDao.delete(id);
-                System.out.println("User deleted successfully.");
-            } else {
-                System.out.println("User not found with ID: " + id);
-            }
+            userService.deleteUser(id);
         } catch (NumberFormatException e) {
             System.out.println("Invalid ID format. Please enter a number.");
         } catch (Exception e) {

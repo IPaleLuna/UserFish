@@ -1,0 +1,4 @@
+unit\dao\UserServiceImplTest.class
+unit\service\UserDaoImplIT.class
+unit\service\TestHibernateUtil.class
+integration\dao\UserDaoImplIT.class
