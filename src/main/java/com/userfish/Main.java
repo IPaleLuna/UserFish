@@ -77,8 +77,11 @@ public class Main {
             
             System.out.print("Enter email: ");
             String email = scanner.nextLine();
+
+            System.out.print("Enter age: ");
+            int age = Integer.parseInt(scanner.nextLine());
             
-            User user = new User(name, email);
+            User user = new User(name, age, email);
             User savedUser = userDao.save(user);
             System.out.println("User created successfully: " + savedUser);
         } catch (NumberFormatException e) {
@@ -143,6 +146,12 @@ public class Main {
             String email = scanner.nextLine();
             if (!email.isEmpty()) {
                 user.set_email(email);
+            }
+
+            System.out.print("Enter new age (current: " + user.get_age() + "): ");
+            String ageInput = scanner.nextLine();
+            if (!ageInput.isEmpty()) {
+                user.set_age(Integer.parseInt(ageInput));
             }
             
             User updatedUser = userDao.update(user);

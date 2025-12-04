@@ -15,6 +15,11 @@ public class User {
     @Column(name = "name", nullable = false, length = 100)
     private String _name;
 
+    @Column(name = "age", nullable = false)
+    private int _age;
+
+    
+
     @Column(name = "email", nullable = false, unique = true, length = 150)
     private String _email;
 
@@ -25,9 +30,10 @@ public class User {
 
      public User() {}
 
-    public User(String name, String email) {
+    public User(String name, int age, String email) {
         this._name = name;
         this._email = email;
+        this._age = age;
         this._createdAt = LocalDateTime.now();
     }
 
@@ -41,22 +47,29 @@ public class User {
     public long get_id() {
         return _id;
     }
-    public void set_id(long _id) {
-        this._id = _id;
+    public void set_id(long id) {
+        this._id = id;
     }
 
     public String get_name() {
         return _name;
     }
-    public void set_name(String _name) {
-        this._name = _name;
+    public void set_name(String name) {
+        this._name = name;
+    }
+
+    public int get_age() {
+        return _age;
+    }
+    public void set_age(int age) {
+        this._age = age;
     }
 
     public String get_email() {
         return _email;
     }
-    public void set_email(String _email) {
-        this._email = _email;
+    public void set_email(String email) {
+        this._email = email;
     }
 
     public LocalDateTime get_createdAt() {
@@ -68,7 +81,7 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("User{id=%d, name='%s', email='%s', createdAt=%s}",
-                _id, _name, _email, _createdAt);
+        return String.format("User{id=%d, name='%s', age='%s', email='%s', createdAt=%s}",
+                _id, _name, _age, _email, _createdAt);
     }
 }
