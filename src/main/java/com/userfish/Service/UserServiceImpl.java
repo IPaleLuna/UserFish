@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public User createUser(String name, String email, Integer age) throws IllegalStateException, SystemException {
+    public User createUser(String name, Integer age, String email) throws IllegalStateException, SystemException {
         logger.info("Creating new user: name={}, age={}, email={}", name, age, email);
         
         validateName(name);
@@ -40,7 +40,10 @@ public class UserServiceImpl implements UserService {
     public Optional<User> getUserById(Long id) {
         logger.info("Getting user by id: {}", id);
         
-        if (id == null || id <= 0) {
+        if (id == null) {
+            throw new IllegalArgumentException("Invalid user ID. ID cannot be null");
+        }
+        else if( id < 0) {
             throw new IllegalArgumentException("Invalid user ID. ID must be positive number");
         }
         
@@ -54,7 +57,7 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public User updateUser(Long id, String name, String email, Integer age) throws IllegalStateException, SystemException {
+    public User updateUser(Long id, String name, Integer age, String email) throws IllegalStateException, SystemException {
         logger.info("Updating user with id: {}, name={}, age={}, email={}", 
                    id, name, age, email);
         

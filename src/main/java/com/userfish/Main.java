@@ -83,7 +83,7 @@ public class Main {
             System.out.print("Enter age: ");
             int age = Integer.parseInt(scanner.nextLine());
             
-            User savedUser = userService.createUser(name, email, age);
+            User savedUser = userService.createUser(name, age, email);
             System.out.println("User created successfully: " + savedUser);
 
         } catch (NumberFormatException e) {
@@ -147,7 +147,7 @@ public class Main {
             System.out.print("Enter new age (current: " + user.get_age() + "): ");
             int ageInput = Integer.parseInt(scanner.nextLine());
             
-            User updatedUser = userService.updateUser(id, name, email, ageInput);
+            User updatedUser = userService.updateUser(id, name, ageInput, email);
             System.out.println("User updated successfully: " + updatedUser);
         } catch (NumberFormatException e) {
             System.out.println("Invalid number format.");

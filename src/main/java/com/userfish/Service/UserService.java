@@ -8,10 +8,10 @@ import com.userfish.model.User;
 import jakarta.transaction.SystemException;
 
 public interface UserService {
-    User createUser(String name, String email, Integer age) throws IllegalStateException, SystemException;
+    User createUser(String name, Integer age, String email) throws IllegalStateException, SystemException;
     Optional<User> getUserById(Long id);
     List<User> getAllUsers();
-    User updateUser(Long id, String name, String email, Integer age) throws IllegalStateException, SystemException;
+    User updateUser(Long id, String name, Integer age, String email) throws IllegalStateException, SystemException;
     boolean deleteUser(Long id) throws IllegalStateException, SystemException;
     boolean userExists(Long id);
 }
